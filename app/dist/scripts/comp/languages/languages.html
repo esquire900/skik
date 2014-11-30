@@ -1,0 +1,18 @@
+<div class="container lang-container">
+	<div class="language-help">
+		Select some lanuages you like, and go back to the homepage (click on skik)!
+	</div>
+	<br>
+	<input type="text" class="form-control" placeholder="Filter: Ruby, PHP, ..." ng-model="filterQuery">
+	<br>
+	<div ng-repeat="row in languages" class="row">
+		<div class="col-md-2" ng-repeat="lang in row | filter:filterQuery" >
+			<div class="lang-large" ng-if="selectedLanguages.indexOf(lang.name) !== -1" ng-click="click(lang.name)">
+				<img ng-src="{{lang.img}}" width="100%"  ng-cloak>
+			</div>
+			<div class="lang-large not-selected" ng-if="selectedLanguages.indexOf(lang.name) === -1" ng-click="click(lang.name)">
+				<img ng-src="{{lang.img}}" width="100%" ng-cloak>
+			</div>
+		</div>
+	</div>
+</div>

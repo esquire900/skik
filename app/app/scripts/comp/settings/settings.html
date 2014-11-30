@@ -1,0 +1,33 @@
+<div class="settings-container">
+	<div class="row" style="margin:-25px;">
+		<div class="col-md-8" style="margin:0px;padding:0px;">
+			<div id="editor">
+			</div>
+		</div>
+		<div class="col-md-4" style="margin:0px;padding:0px;">
+			<div class="documentation">
+				<h3>Documentation</h3>
+				<br>
+				<div class="label label-danger" ng-if="!isSaved">
+					Don't forget to save!
+				</div>
+				<br><br>
+				
+				<input type="text" class="form-control" ng-model="filterQ" placeholder="Filter.." ng-change="setFilter(filterQ)">
+				<hr>
+				<div class="scroll">
+					Important: you can safely change settings within the documented limits. If you remove stuff or provide values others than those suggested, things will most likely break. If the webapp ever fails to startup, try http://skikapp.com/#/reset, which should do the trick.
+					<br><br>
+					<div ng-repeat="(doc, index) in docs" class="item">
+						<i>{{doc}} :</i>
+						<div class="indent">
+							{{index.comment}} <br>
+							Possible values: {{index.options}} <br>
+							Defaults to: {{index.default}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

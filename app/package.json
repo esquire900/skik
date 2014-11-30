@@ -1,0 +1,28 @@
+{
+  "name": "app",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-coffee": "latest",
+    "gulp-util": "latest",
+    "gulp-stylus": "latest",
+    "gulp-watch": "latest",
+    "gulp-plumber": "latest",
+    "gulp-livereload": "latest",
+    "gulp-ignore": "latest",
+    "gulp-minify-css": "latest",
+    "gulp-minify-html": "latest",
+    "gulp-useref": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-uglify": "latest",
+    "gulp-if": "latest",
+    "gulp-sourcemaps": "latest"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}

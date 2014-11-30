@@ -1,0 +1,181 @@
+<div ng-if="userIsNew">
+	<div class="container welcomeText">
+		<div class="col-md-6 col-md-offset-3">
+			<h2>Welcome to <i class="fa fa-newspaper-o"></i>SKIK</h2>
+			<blockquote>The hackable newsreader for programming languages</blockquote>
+			<br>
+			<h2>New here?</h2>
+			<ul>
+				<li>Go to <a href="#/languages">languages</a> and pick some stuff you like</li>
+				<li>Get the latest news of stuff you know at the homepage</li>
+				<li>Get crazy in the <a href="#/settings">settings</a></li>
+			</ul>
+			<br><br><br><br>
+			Been here before? Let's get those precious settings synced! <br>
+			<div ng-if="loginErrorStart">
+				<br>
+				<div class="label label-info">
+					{{loginErrorStart}}
+				</div>
+				<br>
+			</div>
+			<div ng-if="loadingLogin">
+				<center>
+					<img style="height:100px" ng-src="./images/Preloader_{{rand}}.gif" alt="">
+					<br>
+				</center>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-5">
+					<input type="text" class="form-control" placeholder="Email Adress" ng-model="email_start" ng-change="setEmail(email_start)">
+				</div>
+				<div class="col-md-5">
+					<input type="password" class="form-control" placeholder="Password" ng-model="password_start" ng-change="setPassword(password_start)">
+				</div>
+				<div class="col-md-2">
+					<div class="btn btn-primary form-control" ng-click="loginStart()">Login</div>
+				</div>
+			</div>
+			<small>Don't worry, you can register later. Just get started in the languages!</small>
+		</div>
+	</div>
+</div>
+
+<div class="container reading-container" ng-if="!userIsNew && !loading">
+	<div class="row">
+		<div class="col-md-3" ng-if="!settings.reader_show_left_column && settings.reader_show_news"></div>
+		<div class="col-md-3" ng-if="settings.reader_show_left_column">
+			<h4>Reading List</h4>
+			<div ng-repeat="(i, feeds) in feedList" class="custom-well">
+				<div class="tree">
+					<div class="root">
+						<div class="row"  ng-click="trees[i] = !trees[i]">
+							<div class="col-md-1">
+								<i class="fa fa-caret-down" ng-if="trees[i]"></i> 
+								<i class="fa fa-caret-right" ng-if="!trees[i]"></i> 
+							</div>
+							<div class="col-md-8">
+								{{languageNames[i]}}
+							</div>
+						</div>
+					</div>
+					<div>
+						<div ng-repeat="feed in feeds" ng-if="trees[i]">
+							<div class="child" ng-click="switchEnabled(i, feed)">
+								<div ng-if="isEnabled(i, feed)">
+									<i class="fa fa-check-square-o"></i> {{feed}}
+								</div>
+								<div ng-if="!isEnabled(i, feed)">
+									<i class="fa fa-square-o"></i> {{feed}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="custom-well" ng-if="settings.reader_show_login">
+				<div ng-if="!userLoggedIn">
+					<b>Login to, well, sync stuff ;)</b> <br>
+					<div ng-if="loginError">
+						<br>
+						<div class="label label-danger">{{loginError}}</div>
+						<br>
+					</div>
+					<br>
+					<div ng-if="loadingLogin">
+						<center>
+							<img style="height:100px" ng-src="./images/Preloader_{{rand}}.gif" alt="">
+							<br>
+						</center>
+					</div>
+					<input type="text" ng-model="email_2" class="form-control" placeholder="Email" ng-change="setEmail(email_2)"><br>
+					<input type="password" class="form-control" placeholder="Password" ng-model="password" ng-change="setPassword(password)"><br>
+					<div class="btn btn-primary form-control" ng-click="login()">{{loginBtnText}}</div>
+					<br><br>
+					Or do you like to <a ng-click="switchLoginType()">{{loginLabelText}}</a>?
+				</div>
+				<div ng-if="userLoggedIn">
+					Hi there {{settings.user_name}}!
+					<div class="btn btn-danger btn-xs pull-right" ng-click="logout()">logout</div>
+					<div ng-if="settingsOutOfSync">
+						<div class="alert alert-danger">You're current settings don't match the settings saved on the server. Either click the button below to overwrite the local settings, or ignore this :)</div>
+						<div class="btn btn-primary form-control" ng-click="syncSettings()">Use server settings</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6" ng-if="settings.reader_show_news">
+			<h4>News</h4>
+			<div ng-repeat="item in news track by $index" class="custom-well news-item" ng-click="openArticle(item.id)" id="{{item.id}}">
+				<b>{{item.title}}</b>
+				<span class="pull-right" ng-click="closeArticle(item.id)" ng-show="isOpen(item.id)">
+					<a><i class="fa fa-close close"></i></a>
+				</span>
+				<br>
+				<div class="details">
+					{{item.language}} | {{item.feed_name}} | {{item.date}} |
+					<a ng-href="{{item.link}}" target="_blank">link</a>
+				</div>
+				<div ng-if="isOpen(item.id)">
+					<hr>
+					<div ng-bind-html="item.content" class="content"></div>
+					<hr>
+					<div class="row bottom-line">
+						<div class="col-md-4">
+							<a ng-href="{{item.link}}" target="_blank"><i class="fa fa-external-link"></i> Original article</a>
+						</div>
+						<div class="col-md-4 pull-right">
+							<span class="pull-right" ng-click="closeArticle(item.id)" ng-show="isOpen(item.id)">
+								<a class="close">Close Article</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<center>
+				<div class="btn btn-default form-control" ng-click="loadMore()">Gimme more!</div>
+			</center>
+		</div>
+		<div class="col-md-3" ng-if="settings.reader_show_repo && settings.reader_show_news">
+			<h4>Software</h4>
+			<div ng-repeat="repo in repos" class="custom-well repo">
+				<a ng-href="{{repo.link}}" target="_blank">
+					<b>{{repo.title}}</b>
+				</a><br>
+				{{repo.content}}
+			</div>
+			<small>Want to see more? Change the reader_repo_count setting!</small>
+		</div>
+		<div class="col-md-12" ng-if="settings.reader_show_repo && !settings.reader_show_news && !settings.reader_show_left_column">
+			<h4>Software</h4>
+			<div ng-repeat="rows in getRepoRows()" class="row">
+				<div  ng-repeat="repo in rows" class="col-md-3">
+					<div class="custom-well repo" style="height:116px">
+						<a ng-href="{{repo.link}}" target="_blank">
+							<b>{{repo.title}}</b>
+						</a><br>
+						{{repo.content}}
+					</div>
+				</div>
+			</div>
+			<small>Want to see more? Change the reader_repo_count setting!</small>
+		</div>
+	</div>
+	<div ng-if="notFollowingAnything">
+	<br><br>
+		<center>
+			Did you expect something here when you're not following any language? <br>
+			Seems unreasonable right?<br>
+			So get your <b>ass back to <a href="#/languages">languages</a></b> and select some stuff!!! <br>
+			<small>Meant in a friendly way ofcourse ;)</small>
+		</center>
+	</div>
+</div>
+
+<div ng-if="loading" class="loading-img">
+	<center>
+		<img style="height:100px" ng-src="./images/Preloader_{{rand}}.gif" alt="">
+		<br>
+	</center>
+</div>

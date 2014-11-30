@@ -1,0 +1,172 @@
+second = #79B1C4
+first = #79A736
+html-color = #E44D26
+grey-ulight = rgba(245, 245, 245, 1)
+grey-light = rgba(225, 225, 225, 1)
+grey = rgba(180, 180, 180, 0.5)
+grey-dark = #272822
+grey-udark = rgba(20, 20, 20, 1)
+
+html,
+body 
+    height: 100%;
+    background-color grey-ulight
+    font-size 14px
+    padding-top 30px
+
+.custom-well
+    background-color white
+    box-shadow 0px 0px 5px lighten(grey-dark, 70)
+    padding 10px
+    margin-bottom 5px
+
+.btn
+  box-shadow none
+  &.btn-primary
+    background-color first
+    
+@media (min-width: 922px)
+    .container
+        padding 3px
+        width 980px
+@media (min-width: 1200px)
+    .container
+        padding 3px
+        width 1200px
+
+.close
+    cursor pointer
+
+.navbar-default
+    background-color grey-dark
+    .fa
+        color lighten(first,20)
+    .fa-html5
+        color html-color
+    .fa-cog
+        color grey-light
+    .fa-question-circle
+        color second
+.navbar .nav > li > a
+    font-size 12px
+.header
+    font-weight bold
+.form-control
+    border-radius 0px
+.tree
+    .root
+        font-size 1.2em
+        font-weight bold
+        // border-bottom 1px solid grey-ulight
+        .fa 
+            width 15px
+    .child
+        padding-left 30px
+        .fa
+            width 20px
+    .deselected
+        background-color grey-ulight
+        color darken(grey-light,15)
+        
+.reading-container
+    margin-top 30px
+    h4
+        font-family: "Roboto"
+        text-transform uppercase
+.lang-large
+    padding 5px
+    background-color white
+    box-shadow 1px 1px 5px black
+    height 180px
+    margin-bottom 15px
+    cursor pointer
+    position relative
+    img 
+        width 100%
+        
+.not-selected:after 
+    content: " ";
+    z-index: 10;
+    display: block;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    cursor pointer
+    
+.lang-container
+    width 1250px
+    padding 25px
+    margin-top 35px
+    background-color grey-dark
+    box-shadow 1px 1px 5px lighten(grey-dark,15)
+    position: relative;
+    // cursor pointer
+    
+.welcomeText
+    color lighten(grey-dark, 40)
+    // text-shadow 1px 0px grey-light
+    margin-top 50px
+    h2, blockquote
+        text-align center
+    font-size 18px
+
+.settings-container
+    padding 25px
+    margin-top 9px
+    background-color grey-dark
+    // box-shadow 1px 1px 5px lighten(grey-dark,15)
+    position: relative;
+    height 2px
+    #editor
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index 1
+        height 100%
+    .documentation
+        background-color grey-dark
+        color white
+        height 100%
+        overflow-y hidden
+        .scroll
+            overflow-y scroll
+            height 100%
+        border-left 1px solid darken(grey-light,40)
+        padding-left 20px
+        padding-right 20px
+        z-index 2
+        .item 
+            margin-bottom 10px
+            .indent
+                padding-left 25px
+
+.loading-img
+    text-align center
+    padding-top 60px
+    
+.fa-newspaper-o
+    color first
+
+    
+.news-item
+    .details
+        color lighten(grey-dark, 40)
+    .content
+        img
+            max-width 100%
+    .bottom-line
+        text-align center
+
+.label
+    border-radius 1px
+    padding 7px
+    font-weight normal
+    max-width 100%
+    
+.language-help
+    color grey-light
